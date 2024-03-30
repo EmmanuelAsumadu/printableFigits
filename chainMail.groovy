@@ -26,13 +26,17 @@ CSG post3=post.movex(movement).movey(-movement)
 CSG post4=post.movex(-movement).movey(movement)
 CSG allUnion =CSG.unionAll(theBottom,theTop,post,post1,post2,post3,post4)
 def list =[]
-for (int row=0; row<12; row++) 
+int number=0
+for (int row=0; row<10; row++) 
 {
-	for(int col=0; col<12; col++ )
+	for(int col=0; col<10; col++ )
 	{
-		CSG tryNew = allUnion.movex((movement*1.5)*row).movey((movement*1.5)*col)
-		
+		CSG tryNew = allUnion.movex(-(movement*1.5)*col+(row*linkX*1.5)).movey((-movement*1.5)*col)
 		list.add(tryNew)
 	}
 }
-return list;
+CSG all = allUnion
+for(CSG c:list) {
+	all=all.dumbUnion(c);
+}
+return all;
